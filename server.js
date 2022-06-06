@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const phoneBookData = [
+let phoneBookData = [
   {
     id: 1,
     name: 'Arto Hellas',
@@ -46,6 +46,18 @@ app.get('/api/persons/:id', (req, res) => {
   }
 
   res.send(person);
+});
+
+app.delete('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const person = phoneBookData.find((person) => person.id === id);
+  if (person === undefined) {
+    return res.status(404).send('Bad Request: Person not found');
+  }
+
+  // remove only person with matching id
+  phoneBookData = phoneBookData.filter((person) => person.id !== id);
+  res.send(phoneBookData);
 });
 
 const PORT = 8000;
