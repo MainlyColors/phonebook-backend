@@ -28,6 +28,11 @@ const phoneBookData = [
 // ROUTES
 // *************
 
+app.get('/info', (req, res) => {
+  res.end(`Phonebook has info for ${phoneBookData.length} people
+${new Date()}`);
+});
+
 app.get('/api/persons', (req, res) => {
   res.json(phoneBookData);
 });
