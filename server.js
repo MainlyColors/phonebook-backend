@@ -55,6 +55,23 @@ app.post('/api/persons', (req, res) => {
     number: body.number,
   };
 
+  // if missing properties
+  if (!body.name || !body.number) {
+    return res
+      .status(404)
+      .send(JSON.stringify({ error: 'name OR number property is missing' }));
+  }
+
+  const nameDuplicate = phoneBookData.find(
+    (person) => person.name.toLowerCase() === body.name.toLowerCase()
+  );
+  //if name is already taken
+  if (nameDuplicate !== undefined) {
+    return res
+      .status(404)
+      .send(JSON.stringify({ error: 'name already taken and in database' }));
+  }
+
   phoneBookData.push(newPerson);
   res.send(phoneBookData);
 });
