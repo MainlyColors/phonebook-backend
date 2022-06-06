@@ -25,6 +25,13 @@ let phoneBookData = [
 ];
 
 // *************
+// MIDDLEWARE
+// *************
+
+// uses body-parser under the hood
+app.use(express.json());
+
+// *************
 // ROUTES
 // *************
 
@@ -36,6 +43,20 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons', (req, res) => {
   res.json(phoneBookData);
+});
+
+app.post('/api/persons', (req, res) => {
+  const body = req.body;
+  const randomID = Math.floor(Math.random() * 1000);
+
+  const newPerson = {
+    id: randomID,
+    name: body.name,
+    number: body.number,
+  };
+
+  phoneBookData.push(newPerson);
+  res.send(phoneBookData);
 });
 
 app.get('/api/persons/:id', (req, res) => {
