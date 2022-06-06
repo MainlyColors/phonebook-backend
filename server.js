@@ -29,12 +29,23 @@ const phoneBookData = [
 // *************
 
 app.get('/info', (req, res) => {
-  res.end(`Phonebook has info for ${phoneBookData.length} people
-${new Date()}`);
+  res.send(
+    `Phonebook has info for ${phoneBookData.length} people <br>${new Date()}`
+  );
 });
 
 app.get('/api/persons', (req, res) => {
   res.json(phoneBookData);
+});
+
+app.get('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const person = phoneBookData.find((person) => person.id === id);
+  if (person === undefined) {
+    return res.status(404).send('Bad Request: Person not found');
+  }
+
+  res.send(person);
 });
 
 const PORT = 8000;
