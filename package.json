@@ -1,0 +1,11 @@
+{
+  "name": "fullstackopen-part3-exercises",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Mahara",
+  "license": "MIT"
+}
