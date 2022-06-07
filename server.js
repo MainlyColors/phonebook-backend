@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
 let phoneBookData = [
   {
@@ -30,6 +31,7 @@ let phoneBookData = [
 
 // uses body-parser under the hood
 app.use(express.json());
+app.use(morgan('tiny'));
 
 // *************
 // ROUTES
