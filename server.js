@@ -28,10 +28,20 @@ let phoneBookData = [
 // *************
 // MIDDLEWARE
 // *************
-
 // uses body-parser under the hood
 app.use(express.json());
-app.use(morgan('tiny'));
+
+// custom format token to use
+morgan.token('bodyContent', function getId(req, res) {
+  return JSON.stringify(req.body);
+});
+
+// mostly the tiny configure but :bodyContent added to the end
+app.use(
+  morgan(
+    ':method :url :status :res[content-length] - :response-time ms :bodyContent'
+  )
+);
 
 // *************
 // ROUTES
